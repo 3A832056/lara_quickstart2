@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Policies\TaskPolicy;
+
 
 class TaskController extends Controller
 {
@@ -31,6 +33,13 @@ class TaskController extends Controller
             'name' => $request->name,
         ]);
 
+        return redirect('/tasks');
+    }
+
+    public function destroy(Request $request, Task $task)
+    {
+        //$this->authorize('destroy', $task); //可註解或略過
+        $task->delete();
         return redirect('/tasks');
     }
 }
